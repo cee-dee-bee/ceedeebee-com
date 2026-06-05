@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume — Christian deBettencourt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      --bg: #0f1117;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --text-bright: #f8fafc;
+      --accent: #60a5fa;
+      --border: #1e293b;
+    }
+
+    /* ── Reset & base ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    /* ── Nav ── */
+    nav {
+      max-width: 680px;
+      margin: 0 auto 3rem;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.2s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--accent);
+      transition: width 0.2s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--accent);
+    }
+
+    nav a.active::after,
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* ── Layout ── */
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    h1 {
+      font-family: "Big Shoulders Display", sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: var(--accent);
+    }
+
+    .download-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .download-link:hover {
+      color: var(--accent);
+    }
+
+    .download-link svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* ── Section headings ── */
+    h2 {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Sections ── */
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Summary ── */
+    .summary p {
+      font-size: 0.925rem;
+      color: #cbd5e1;
+      line-height: 1.8;
+    }
+
+    /* ── Skills ── */
+    .skills-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .skill-row {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    .skill-row strong {
+      color: var(--text-bright);
+      font-weight: 500;
+    }
+
+    /* ── Experience ── */
+    .job {
+      margin-bottom: 2rem;
+    }
+
+    .job:last-child {
+      margin-bottom: 0;
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .job-company {
+      font-size: 0.975rem;
+      font-weight: 600;
+      color: var(--text-bright);
+    }
+
+    .job-dates {
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .job-role {
+      font-size: 0.875rem;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      font-style: italic;
+    }
+
+    .job-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .job-bullets li {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      line-height: 1.7;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .job-bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+
+    /* ── Sub-roles (multiple titles at one company) ── */
+    .sub-role {
+      margin-top: 1.25rem;
+    }
+
+    .sub-role-title {
+      font-size: 0.875rem;
+      color: var(--accent);
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── Education ── */
+    .edu-school {
+      font-size: 0.975rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-bottom: 0.25rem;
+    }
+
+    .edu-degree {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Me</a>
+    <a href="resume.html" class="active">Resume</a>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <h1>Resume</h1>
+      <a href="Christian_deBettencourt_Resume.pdf" download class="download-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 16l-5-5 1.41-1.41L11 13.17V4h2v9.17l2.59-2.58L17 11l-5 5zm-7 2h14v2H5z"/>
+        </svg>
+        Download PDF
+      </a>
+    </div>
+
+    <!-- Summary -->
+    <section class="summary">
+      <h2>Summary</h2>
+      <p>
+        Business Intelligence professional with 10+ years of experience partnering with business stakeholders to
+        deliver data and analytics solutions that drive decisions, including 5+ years embedded in GTM organizations
+        supporting Sales, Marketing, and Customer Success. Comfortable operating as both a hands-on contributor
+        and a people manager, building the infrastructure, standards, and team capabilities that organizations
+        depend on for trusted decision-making. Combines deep technical proficiency in Looker, Domo, SQL, and
+        Snowflake with a track record of translating business questions into actionable data products, improving
+        data integrity, establishing processes, and aligning cross-functional leaders and teams.
+      </p>
+    </section>
+
+    <!-- Skills -->
+    <section>
+      <h2>Technical Skills</h2>
+      <div class="skills-list">
+        <div class="skill-row"><strong>BI &amp; Visualization:</strong> Domo, Looker, Hex, Tableau Public</div>
+        <div class="skill-row"><strong>Languages:</strong> SQL (Postgres, MySQL, Snowflake), Python</div>
+        <div class="skill-row"><strong>Tools &amp; Platforms:</strong> Salesforce, BitBucket/GitHub, JIRA, dbt (foundational), Rundeck</div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section>
+      <h2>Experience</h2>
+
+      <!-- GoodVets -->
+      <div class="job">
+        <div class="job-header">
+          <span class="job-company">GoodVets</span>
+          <span class="job-dates">July 2024 – March 2025</span>
+        </div>
+        <div class="job-role">Business Intelligence Lead · Chicago, IL</div>
+        <ul class="job-bullets">
+          <li>Created company-wide data dictionary in partnership with executive leadership, establishing data stewardship standards and defining operational and financial KPIs for a unified reporting foundation</li>
+          <li>Administered and redesigned Domo BI platform architecture, implementing automated data checks, consolidating ETL workflows and datasets, and reducing platform footprint ~30% to improve reliability and self-service accessibility</li>
+          <li>Developed utilization and availability metrics supporting hospital staffing and appointment initiatives, directly enabling the hire of a dedicated scheduling manager and highlighting ~15% of hospitals as underutilized revenue opportunities</li>
+          <li>Built "Field Management Score" data product, consolidating 100+ static reports into a single interactive scorecard, saving district managers 4+ hours during bi-weekly hospital reviews</li>
+          <li>Restored budgetary data integrity by auditing and correcting legacy data issues in invoicing, churn, and retention metrics that had been misrepresented by 2–3%</li>
+        </ul>
+      </div>
+
+      <!-- Upwork -->
+      <div class="job">
+        <div class="job-header">
+          <span class="job-company">Upwork</span>
+          <span class="job-dates">December 2018 – July 2024</span>
+        </div>
+
+        <div class="sub-role">
+          <div class="sub-role-title">BI &amp; Analytics Engineering Manager · February 2024 – July 2024 · Chicago, IL</div>
+          <ul class="job-bullets">
+            <li>Led Looker data governance and platform accessibility initiatives across 5 Analytics verticals, partnering with Analytics leadership on improvement roadmap, model standards, and deprecation of stale content</li>
+            <li>Scaled quarterly self-service BI NPS survey from proof-of-concept to 800+ users, establishing a repeatable framework for measuring and improving data accessibility across the organization</li>
+          </ul>
+        </div>
+
+        <div class="sub-role">
+          <div class="sub-role-title">Manager, Sales Analytics · June 2022 – February 2024</div>
+          <ul class="job-bullets">
+            <li>Managed a team of 4 analysts and 2 freelancers supporting the Enterprise BU, navigating the team's transition from Sales Operations into the centralized Analytics organization</li>
+            <li>Owned 300+ user Domo instance end-to-end for the Sales, Success, Solutions, and Partnership organizations, including data management, development, Snowflake integrations, and repositories</li>
+            <li>Migrated Sales Operations flywheel reporting from Google Sheets to an automated Looker report tracking pipeline conversion, lifecycle velocity, and GSV growth, eliminating 20+ hours of manual input and enabling on-demand access for the CFO and Enterprise GM</li>
+          </ul>
+        </div>
+
+        <div class="sub-role">
+          <div class="sub-role-title">Senior Sales Operations Analyst · February 2021 – June 2022</div>
+          <ul class="job-bullets">
+            <li>Developed "One Big Table" data model for Sales, consolidating Upwork, Salesforce, and third-party data into a single output for daily Sales metrics, standardizing dimensions, resolving legacy integrity issues, and enabling BI platform improvements at scale</li>
+            <li>Created automated data quality checks for Salesforce and revenue anomalies, enabling the Sales Operations team to proactively validate monthly commissions and forecasts</li>
+            <li>Coordinated table migrations to AWS and Snowflake, validating accuracy of data across systems and updating the entire Domo instance to align with new sources</li>
+          </ul>
+        </div>
+
+        <div class="sub-role">
+          <div class="sub-role-title">Sales Operations and Systems Analyst · December 2018 – February 2021</div>
+          <ul class="job-bullets">
+            <li>Founding member of the Sales Operations data team, partnering with Sales, Success, and Solutions to build the analytics foundation for a rapidly scaling Sales organization</li>
+            <li>Refactored legacy SQL, redeployed production data, and rebuilt Domo architecture from the ground up for Sales and Success users</li>
+            <li>Owned the Sales data Slack channel with 200+ users, serving as the primary resource for Domo and data questions, and launched bi-weekly SalesOps data quality meetings to proactively resolve gaps and inconsistencies</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Uptake -->
+      <div class="job">
+        <div class="job-header">
+          <span class="job-company">Uptake</span>
+          <span class="job-dates">October 2016 – August 2018</span>
+        </div>
+
+        <div class="sub-role">
+          <div class="sub-role-title">Manager, Business Intelligence · February 2018 – August 2018 · Chicago, IL</div>
+          <ul class="job-bullets">
+            <li>Administered the Domo BI platform, governing 100+ licenses, training users, managing data ingestion and transformations, and creating dashboards for leadership</li>
+            <li>Led a proof-of-concept to define BI and data warehouse strategy, evaluating and recommending Snowflake, AWS, and Tableau as the target infrastructure</li>
+            <li>Established JIRA Kanban workflow to manage BI request intake, track service levels, and improve delivery transparency and efficiency</li>
+          </ul>
+        </div>
+
+        <div class="sub-role">
+          <div class="sub-role-title">Business Intelligence Specialist · October 2016 – February 2018</div>
+          <ul class="job-bullets">
+            <li>Founding BI hire, establishing BI &amp; Analytics team standards and procedures, centralizing reporting, and managing data sources in support of the Director of Business Operations</li>
+            <li>Collaborated with Finance, Product, and Operations teams to deliver spend reports, lead-opportunity heatmaps, budget tracking, and SLA incident dashboards</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Avant -->
+      <div class="job">
+        <div class="job-header">
+          <span class="job-company">Avant</span>
+          <span class="job-dates">February 2016 – August 2016</span>
+        </div>
+        <div class="job-role">Data Management Program Associate – Business Intelligence · Chicago, IL</div>
+        <ul class="job-bullets">
+          <li>Developed and maintained SQL and LookML repositories across Compliance, Product, Finance, Collections, and Operations, supporting lead, application, loan, customer, and contract reporting</li>
+          <li>Created foundational SQL script generating a weekly report for Avant's first external bank partner, including 200+ required attributes from loan applications</li>
+          <li>Built Compliance and Collections dashboards supporting UK expansion, reducing outstanding loan balances, identifying deferment trends, and improving loan specialist compliance</li>
+        </ul>
+      </div>
+
+      <!-- Mattersight -->
+      <div class="job">
+        <div class="job-header">
+          <span class="job-company">Mattersight Corporation <span style="font-weight:400; color: var(--text-muted);">(acquired by NICE, August 2018)</span></span>
+          <span class="job-dates">July 2012 – February 2016</span>
+        </div>
+        <div class="job-role">Senior Analyst, Customer Success · Chicago, IL</div>
+        <ul class="job-bullets">
+          <li>Supported major healthcare clients through recurring metric reviews and analyses focused on call center operations, callback rates, agent performance, and non-interaction time</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section>
+      <h2>Education</h2>
+      <div class="edu-school">Washington University in St. Louis</div>
+      <div class="edu-degree">BSBA, Economics and Strategy &nbsp;|&nbsp; BA, Environmental Studies</div>
+    </section>
+
+  </main>
+</body>
+</html>
