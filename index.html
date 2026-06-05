@@ -8,6 +8,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
+    /* ── Design tokens ── */
+    :root {
+      --bg: #0f1117;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --text-bright: #f8fafc;
+      --accent: #60a5fa;
+      --border: #1e293b;
+    }
+
     /* ── Reset & base ── */
     *, *::before, *::after {
       box-sizing: border-box;
@@ -16,8 +26,8 @@
     }
 
     body {
-      background-color: #0f1117;
-      color: #e2e8f0;
+      background-color: var(--bg);
+      color: var(--text);
       font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
       display: flex;
@@ -35,18 +45,18 @@
     /* ── Name ── */
     h1 {
       font-family: "Big Shoulders Display", sans-serif;
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-weight: 700;
       letter-spacing: 0.01em;
-      color: #f8fafc;
+      color: var(--accent);
       margin-bottom: 0.5rem;
     }
 
     /* ── Tagline ── */
     .tagline {
       font-size: 1rem;
-      color: #94a3b8;
-      margin-bottom: 2rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
       line-height: 1.5;
     }
 
@@ -54,36 +64,53 @@
     .bio {
       font-size: 0.975rem;
       color: #cbd5e1;
-      line-height: 1.7;
-      margin-bottom: 2.5rem;
+      line-height: 1.8;
+      margin-bottom: 3rem;
     }
 
     /* ── Divider ── */
     hr {
       border: none;
-      border-top: 1px solid #1e293b;
+      border-top: 1px solid var(--border);
       margin-bottom: 2rem;
     }
 
     /* ── Links ── */
     .links {
       display: flex;
-      gap: 1.25rem;
+      gap: 1.5rem;
       flex-wrap: wrap;
     }
 
     .links a {
-      color: #94a3b8;
+      color: var(--text-muted);
       text-decoration: none;
       font-size: 0.9rem;
       display: flex;
       align-items: center;
       gap: 0.4rem;
-      transition: color 0.15s ease;
+      transition: color 0.2s ease;
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    .links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--accent);
+      transition: width 0.2s ease;
     }
 
     .links a:hover {
-      color: #f8fafc;
+      color: var(--accent);
+    }
+
+    .links a:hover::after {
+      width: 100%;
     }
 
     /* ── SVG icons ── */
