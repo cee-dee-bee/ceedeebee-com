@@ -30,18 +30,12 @@
       color: var(--text);
       font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
+      padding: 2.5rem 3rem;
     }
 
     /* ── Nav ── */
     nav {
-      max-width: 560px;
-      width: 100%;
-      margin-bottom: 2.5rem;
+      margin-bottom: 4rem;
       display: flex;
       gap: 1.5rem;
     }
@@ -80,6 +74,7 @@
     main {
       max-width: 560px;
       width: 100%;
+      margin: 0 auto;
     }
 
     /* ── Name ── */
@@ -161,6 +156,29 @@
       width: 100%;
     }
 
+    /* ── Edge lines ── */
+    .line-left,
+    .line-right {
+      position: fixed;
+      top: 0;
+      width: 2px;
+      height: 100vh;
+      background-color: #60a5fa;
+      -webkit-mask-image: linear-gradient(to bottom, transparent, white 25%, white 75%, transparent);
+      mask-image: linear-gradient(to bottom, transparent, white 25%, white 75%, transparent);
+      pointer-events: none;
+      animation: colorShift 10s ease-in-out infinite;
+    }
+
+    .line-left { left: 20px; }
+    .line-right { right: 20px; }
+
+    @keyframes colorShift {
+      0%, 100% { background-color: #60a5fa; }
+      33%       { background-color: #2dd4bf; }
+      66%       { background-color: #a78bfa; }
+    }
+
     /* ── Animations ── */
     @keyframes fadeUp {
       from {
@@ -200,6 +218,9 @@
   </style>
 </head>
 <body>
+  <div class="line-left"></div>
+  <div class="line-right"></div>
+
   <nav>
     <a href="index.html" class="active">Home</a>
     <a href="about.html">About Me</a>
