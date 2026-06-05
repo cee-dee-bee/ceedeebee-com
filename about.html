@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Me — Christian deBettencourt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      --bg: #0f1117;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --text-bright: #f8fafc;
+      --accent: #60a5fa;
+      --border: #1e293b;
+    }
+
+    /* ── Reset & base ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    /* ── Nav ── */
+    nav {
+      max-width: 560px;
+      margin: 0 auto 3rem;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.2s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--accent);
+      transition: width 0.2s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--accent);
+    }
+
+    nav a.active::after,
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* ── Layout ── */
+    main {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── Page title ── */
+    h1 {
+      font-family: "Big Shoulders Display", sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: var(--accent);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Story sections ── */
+    .story p {
+      font-size: 0.975rem;
+      color: #cbd5e1;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .story p:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html" class="active">About Me</a>
+  </nav>
+
+  <main>
+    <h1>About Me</h1>
+
+    <div class="story">
+      <p>
+        Hey, I'm Christian, or you can call me Chris. Doesn't matter. I grew up in St. Louis, Missouri,
+        spending most of my time in the Delmar Loop. Proud alumni of St. Louis University High School (SLUH)
+        and WashU, where I graduated with dual degrees from Olin Business School and the College of Arts &amp; Sciences.
+      </p>
+
+      <p>
+        After two awesome decades in StL, I moved to Chicago to start a career doing...something. I lucked into
+        learning SQL on the job and that set everything in motion towards a career in business intelligence and
+        revenue operations. Since then I've worked across unicorn startups and post-IPO companies, navigated
+        layoffs, built and managed teams, and met tons of incredible people.
+      </p>
+
+      <p>
+        Along the way I met my wife, got my first dog, bought a house, and had a son, putting firm roots down
+        in Chicago while remaining close to family and friends in StL. I still have a pet snake from grade school.
+      </p>
+
+      <p>
+        I'm a talented amateur chef (according to my wife) and most nights you'll find me cooking dinner while
+        listening to a podcast (which she probably doesn't like). I play poker with friends every month and lose
+        far less money than I used to. I love getting lost to the music at a live show, especially jam bands.
+        My bank account would like to forget that I've seen Phish 50+ times. When I'm reading it's probably
+        historical non-fiction about war, technology, business, or cities. I can't leave a museum until I read
+        every exhibit or I'm dragged out, whichever happens first. I also love to explore, either by riding my
+        bike or going for long walks. You tend to find the coolest things when you're not looking for them.
+      </p>
+
+      <p>
+        In 2025 I was diagnosed with cancer after a layoff. Not great timing. Thankfully, I caught it early and
+        I'm currently in remission, but it was certainly a "lol wut" type of situation. It happened in a flash
+        and shifted my perspective for the next chapter of my life, especially as a father.
+      </p>
+
+      <p>
+        Now? I'm looking forward to what's next and actively leaning into our new AI-centric future with a degree
+        of healthy skepticism. This is a part of that. Yes, this website was created with Claude. No, this wasn't
+        written by Claude.
+      </p>
+    </div>
+  </main>
+
+</body>
+</html>

@@ -31,9 +31,49 @@
       font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 2rem;
+    }
+
+    /* ── Nav ── */
+    nav {
+      max-width: 560px;
+      width: 100%;
+      margin-bottom: 2.5rem;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.2s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--accent);
+      transition: width 0.2s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--accent);
+    }
+
+    nav a.active::after,
+    nav a:hover::after {
+      width: 100%;
     }
 
     /* ── Layout ── */
@@ -123,6 +163,11 @@
   </style>
 </head>
 <body>
+  <nav>
+    <a href="index.html" class="active">Home</a>
+    <a href="about.html">About Me</a>
+  </nav>
+
   <main>
     <h1>Christian deBettencourt</h1>
     <p class="tagline">Data, BI, and RevOps. Other stuff too.</p>
