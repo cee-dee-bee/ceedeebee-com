@@ -4,13 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Resume — Christian deBettencourt</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <meta property="og:title" content="Resume — Christian deBettencourt" />
+  <meta property="og:description" content="BI & RevOps professional with 10+ years of experience. Open to new opportunities in 2026." />
+  <meta property="og:image" content="https://ceedeebee.com/og-image.png" />
+  <meta property="og:url" content="https://ceedeebee.com/resume.html" />
+  <meta property="og:type" content="website" />
+  <meta name="description" content="BI & RevOps professional with 10+ years of experience. Open to new opportunities in 2026." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     /* ── Design tokens ── */
     :root {
-      --bg: #0f1117;
+      --bg: #0d1b2a;
       --text: #e2e8f0;
       --text-muted: #94a3b8;
       --text-bright: #f8fafc;
@@ -25,18 +32,46 @@
       padding: 0;
     }
 
+    /* ── Page transitions ── */
+    body { opacity: 0; transition: opacity 0.3s ease; }
+    body.loaded { opacity: 1; }
+
     body {
       background-color: var(--bg);
+      background-image: radial-gradient(circle, rgba(96, 165, 250, 0.08) 1px, transparent 1px);
+      background-size: 22px 22px;
       color: var(--text);
       font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
-      padding: 2rem;
+      padding: 2.5rem 3rem;
+    }
+
+    /* ── Edge lines ── */
+    .line-left,
+    .line-right {
+      position: fixed;
+      top: 0;
+      width: 2px;
+      height: 100vh;
+      background-color: #60a5fa;
+      -webkit-mask-image: linear-gradient(to bottom, transparent, white 25%, white 75%, transparent);
+      mask-image: linear-gradient(to bottom, transparent, white 25%, white 75%, transparent);
+      pointer-events: none;
+      animation: colorShift 10s ease-in-out infinite;
+    }
+
+    .line-left { left: 20px; }
+    .line-right { right: 20px; }
+
+    @keyframes colorShift {
+      0%, 100% { background-color: #60a5fa; }
+      33%       { background-color: #2dd4bf; }
+      66%       { background-color: #a78bfa; }
     }
 
     /* ── Nav ── */
     nav {
-      max-width: 680px;
-      margin: 0 auto 3rem;
+      margin-bottom: 4rem;
       display: flex;
       gap: 1.5rem;
     }
@@ -242,15 +277,39 @@
       font-size: 0.9rem;
       color: #cbd5e1;
     }
+    /* ── Footer ── */
+    footer {
+      margin-top: 5rem;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      max-width: 860px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    footer span, footer a {
+      font-size: 0.8rem;
+      color: #4a6580;
+      text-decoration: none;
+    }
+    footer a:hover { color: var(--accent); }
   </style>
 </head>
 <body>
 
+  <div class="line-left"></div>
+  <div class="line-right"></div>
+
   <nav>
     <a href="index.html">Home</a>
-    <a href="index.html#about">About Me</a>
-    <a href="resume.html" class="active">Resume</a>
     <a href="blog.html">CdBlog</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="resume.html" class="active">Resume</a>
+    <a href="contact.html">Contact</a>
   </nav>
 
   <main>
@@ -411,5 +470,25 @@
     </section>
 
   </main>
+
+  <footer>
+    <span>© 2026 Christian deBettencourt · <a href="https://ceedeebee.com">ceedeebee.com</a></span>
+    <span>Built with <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a></span>
+  </footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('loaded');
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('#')) return;
+        e.preventDefault();
+        document.body.classList.remove('loaded');
+        setTimeout(() => { window.location.href = href; }, 300);
+      });
+    });
+  });
+</script>
 </body>
 </html>

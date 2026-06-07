@@ -4,6 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Christian deBettencourt</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <meta property="og:title" content="Christian deBettencourt" />
+  <meta property="og:description" content="Chicago-based dad doing data things. BI & RevOps professional open to new opportunities in 2026." />
+  <meta property="og:image" content="https://ceedeebee.com/og-image.png" />
+  <meta property="og:url" content="https://ceedeebee.com" />
+  <meta property="og:type" content="website" />
+  <meta name="description" content="Chicago-based dad doing data things. BI & RevOps professional open to new opportunities in 2026." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -23,6 +30,15 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    /* ── Page transitions ── */
+    body {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    body.loaded {
+      opacity: 1;
     }
 
     body {
@@ -79,6 +95,31 @@
       margin: 0 auto;
     }
 
+    /* ── Footer ── */
+    footer {
+      margin-top: 5rem;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      max-width: 860px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    footer span, footer a {
+      font-size: 0.8rem;
+      color: #4a6580;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--accent);
+    }
+
     /* ── Hero ── */
     .hero {
       display: flex;
@@ -93,6 +134,17 @@
       border-radius: 50%;
       overflow: hidden;
       flex-shrink: 0;
+      transition: box-shadow 0.4s ease;
+    }
+
+    .avatar:hover {
+      animation: avatarGlow 10s ease-in-out infinite;
+    }
+
+    @keyframes avatarGlow {
+      0%, 100% { box-shadow: 0 0 30px rgba(96, 165, 250, 0.5); }
+      33%       { box-shadow: 0 0 30px rgba(45, 212, 191, 0.5); }
+      66%       { box-shadow: 0 0 30px rgba(167, 139, 250, 0.5); }
     }
 
     .avatar img {
@@ -237,6 +289,22 @@
     hr     { animation-delay: 0.6s; }
     .links { animation-delay: 0.7s; }
 
+    /* ── Typewriter cursor ── */
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background-color: var(--accent);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 0.8s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
     /* ── About section ── */
     .about-section {
       margin-top: 5rem;
@@ -275,11 +343,10 @@
 
   <nav>
     <a href="index.html" class="active">Home</a>
-    <a href="#about">About Me</a>
     <a href="blog.html">CdBlog</a>
-    <a href="#">Portfolio</a>
+    <a href="portfolio.html">Portfolio</a>
     <a href="resume.html">Resume</a>
-    <a href="#">Contact</a>
+    <a href="contact.html">Contact</a>
   </nav>
 
   <main>
@@ -305,7 +372,8 @@
       </div>
       <div class="hero-text">
         <h1>Christian deBettencourt</h1>
-        <p class="tagline">Chicago-based dad doing data things.</p>
+        <p class="tagline" id="tagline-1"></p>
+        <p class="tagline" id="tagline-2" style="font-size: 0.95rem; margin-top: 0.5rem;"></p>
       </div>
     </div>
     <div id="about" class="about-section">
@@ -314,5 +382,54 @@
       <p>Currently open to new opportunities in 2026 after a career break.</p>
     </div>
   </main>
+
+  <footer>
+    <span>© 2026 Christian deBettencourt · <a href="https://ceedeebee.com">ceedeebee.com</a></span>
+    <span>Built with <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a></span>
+  </footer>
+<script>
+  // Page transitions
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('loaded');
+
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('#')) return;
+        e.preventDefault();
+        document.body.classList.remove('loaded');
+        setTimeout(() => { window.location.href = href; }, 300);
+      });
+    });
+  });
+
+  function typeText(elementId, text, speed, onDone) {
+    const el = document.getElementById(elementId);
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    el.appendChild(cursor);
+    let i = 0;
+    const interval = setInterval(() => {
+      el.insertBefore(document.createTextNode(text[i]), cursor);
+      i++;
+      if (i === text.length) {
+        clearInterval(interval);
+        if (onDone) onDone(cursor);
+      }
+    }, speed);
+  }
+
+  // Start after tagline fade-in completes (0.35s delay + 0.5s duration)
+  setTimeout(() => {
+    typeText('tagline-1', 'Chicago-based dad doing data things.', 25, (cursor) => {
+      setTimeout(() => {
+        cursor.remove();
+        typeText('tagline-2', 'Ready for the next chapter.', 25, (cursor2) => {
+          setTimeout(() => cursor2.remove(), 400);
+        });
+      }, 200);
+    });
+  }, 900);
+</script>
 </body>
 </html>

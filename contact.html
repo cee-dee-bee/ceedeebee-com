@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth;">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CdBlog — Christian deBettencourt</title>
+  <title>Contact — Christian deBettencourt</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <meta property="og:title" content="CdBlog — Christian deBettencourt" />
-  <meta property="og:description" content="Thoughts on data, tech, and whatever else is on my mind." />
+  <meta property="og:title" content="Contact — Christian deBettencourt" />
+  <meta property="og:description" content="Get in touch — always happy to connect." />
   <meta property="og:image" content="https://ceedeebee.com/og-image.png" />
-  <meta property="og:url" content="https://ceedeebee.com/blog.html" />
+  <meta property="og:url" content="https://ceedeebee.com/contact.html" />
   <meta property="og:type" content="website" />
-  <meta name="description" content="Thoughts on data, tech, and whatever else is on my mind." />
+  <meta name="description" content="Get in touch — always happy to connect." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
-    /* ── Design tokens ── */
     :root {
       --bg: #0d1b2a;
       --text: #e2e8f0;
@@ -25,7 +24,6 @@
       --border: #1e293b;
     }
 
-    /* ── Reset & base ── */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -108,23 +106,76 @@
 
     /* ── Layout ── */
     main {
-      max-width: 560px;
+      max-width: 860px;
+      width: 100%;
       margin: 0 auto;
     }
 
     h1 {
       font-family: "Big Shoulders Display", sans-serif;
-      font-size: 3rem;
+      font-size: 4rem;
       font-weight: 700;
       letter-spacing: 0.01em;
       color: var(--accent);
       margin-bottom: 1rem;
     }
 
-    .tbd {
-      font-size: 0.975rem;
+    .intro {
+      font-size: 1.15rem;
       color: var(--text-muted);
-      line-height: 1.7;
+      margin-bottom: 3rem;
+      line-height: 1.6;
+    }
+
+    /* ── Contact items ── */
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .contact-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    .contact-link {
+      color: var(--text-bright);
+      text-decoration: none;
+      font-size: 1rem;
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.2s ease;
+    }
+
+    .contact-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--accent);
+      transition: width 0.2s ease;
+    }
+
+    .contact-link:hover {
+      color: var(--accent);
+    }
+
+    .contact-link:hover::after {
+      width: 100%;
     }
     /* ── Footer ── */
     footer {
@@ -149,21 +200,35 @@
   </style>
 </head>
 <body>
-
   <div class="line-left"></div>
   <div class="line-right"></div>
 
   <nav>
     <a href="index.html">Home</a>
-    <a href="blog.html" class="active">CdBlog</a>
+    <a href="blog.html">CdBlog</a>
     <a href="portfolio.html">Portfolio</a>
     <a href="resume.html">Resume</a>
-    <a href="contact.html">Contact</a>
+    <a href="contact.html" class="active">Contact</a>
   </nav>
 
   <main>
-    <h1>CdBlog</h1>
-    <p class="tbd">Posts coming soon.</p>
+    <h1>Contact</h1>
+    <p class="intro">Feel free to reach out — always happy to connect.</p>
+
+    <div class="contact-list">
+      <div class="contact-item">
+        <span class="contact-label">Email</span>
+        <a href="mailto:chris@ceedeebee.com" class="contact-link">chris@ceedeebee.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">LinkedIn</span>
+        <a href="https://www.linkedin.com/in/cdebettencourt/" target="_blank" rel="noopener" class="contact-link">linkedin.com/in/cdebettencourt</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">GitHub</span>
+        <a href="https://github.com/cee-dee-bee" target="_blank" rel="noopener" class="contact-link">github.com/cee-dee-bee</a>
+      </div>
+    </div>
   </main>
 
   <footer>
