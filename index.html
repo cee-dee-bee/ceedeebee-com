@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth;">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,7 +10,7 @@
   <style>
     /* ── Design tokens ── */
     :root {
-      --bg: #0f1117;
+      --bg: #0d1b2a;
       --text: #e2e8f0;
       --text-muted: #94a3b8;
       --text-bright: #f8fafc;
@@ -27,6 +27,8 @@
 
     body {
       background-color: var(--bg);
+      background-image: radial-gradient(circle, rgba(96, 165, 250, 0.08) 1px, transparent 1px);
+      background-size: 22px 22px;
       color: var(--text);
       font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
@@ -72,15 +74,42 @@
 
     /* ── Layout ── */
     main {
-      max-width: 560px;
+      max-width: 860px;
       width: 100%;
       margin: 0 auto;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .avatar {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
     }
 
     /* ── Name ── */
     h1 {
       font-family: "Big Shoulders Display", sans-serif;
-      font-size: 3rem;
+      font-size: 4rem;
       font-weight: 700;
       letter-spacing: 0.01em;
       color: var(--accent);
@@ -95,9 +124,9 @@
 
     /* ── Tagline ── */
     .tagline {
-      font-size: 1rem;
+      font-size: 1.15rem;
       color: var(--text-muted);
-      margin-bottom: 2.5rem;
+      margin-bottom: 0;
       line-height: 1.5;
       cursor: default;
     }
@@ -208,6 +237,29 @@
     hr     { animation-delay: 0.6s; }
     .links { animation-delay: 0.7s; }
 
+    /* ── About section ── */
+    .about-section {
+      margin-top: 5rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .about-section h2 {
+      font-family: "Big Shoulders Display", sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-section p {
+      font-size: 1.25rem;
+      color: #cbd5e1;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      cursor: default;
+    }
+
     /* ── SVG icons ── */
     .links svg {
       width: 16px;
@@ -223,22 +275,23 @@
 
   <nav>
     <a href="index.html" class="active">Home</a>
-    <a href="about.html">About Me</a>
-    <a href="resume.html">Resume</a>
+    <a href="#about">About Me</a>
     <a href="blog.html">CdBlog</a>
+    <a href="#">Portfolio</a>
+    <a href="resume.html">Resume</a>
+    <a href="#">Contact</a>
   </nav>
 
   <main>
-    <h1>Christian deBettencourt</h1>
-    <p class="tagline">Data, BI, and RevOps. Other stuff too.</p>
-
-    <p class="bio">
-      I live in Chicago and have worked in (mostly) tech for 10+ years.
-      Currently open to new opportunities after a career break. It's 2026 and
-      I have a website now. Professional stuff, personal stuff, portfolio stuff,
-      some of this, some of that. I like cooking, being a dad, music, biking,
-      and historical rabbit holes. I do not like blue cheese.
-    </p>
+    <div class="hero">
+      <div class="avatar">
+        <img src="cdb_avatar.png" alt="Christian deBettencourt" />
+      </div>
+      <div class="hero-text">
+        <h1>Christian deBettencourt</h1>
+        <p class="tagline">Data, BI, and RevOps. Other stuff too.</p>
+      </div>
+    </div>
 
     <hr />
 
@@ -259,6 +312,14 @@
         GitHub
       </a>
     </nav>
+    <div id="about" class="about-section">
+      <h2>About Me</h2>
+      <p>I live in Chicago and have worked in (mostly) tech for 10+ years.
+      Currently open to new opportunities after a career break. It's 2026 and
+      I have a website now. Professional stuff, personal stuff, portfolio stuff,
+      some of this, some of that. I like cooking, being a dad, music, biking,
+      and historical rabbit holes. I do not like blue cheese.</p>
+    </div>
   </main>
 </body>
 </html>
