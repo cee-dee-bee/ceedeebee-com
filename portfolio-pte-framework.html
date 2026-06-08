@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Propensity to Expand Framework — Christian deBettencourt</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <meta property="og:title" content="Propensity to Expand Framework — Christian deBettencourt" />
+  <meta property="og:description" content="A weighted scoring model for identifying revenue expansion opportunities in Customer Success." />
+  <meta property="og:image" content="https://ceedeebee.com/og-image.png" />
+  <meta property="og:url" content="https://ceedeebee.com/portfolio-pte-framework.html" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d1b2a;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --text-bright: #f8fafc;
+      --accent: #60a5fa;
+      --border: #1e293b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Page transitions ── */
+    body { opacity: 0; transition: opacity 0.3s ease; }
+    body.loaded { opacity: 1; }
+
+    body {
+      background-color: var(--bg);
+      background-image: radial-gradient(circle, rgba(96, 165, 250, 0.08) 1px, transparent 1px);
+      background-size: 22px 22px;
+      color: var(--text);
+      font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      padding: 2.5rem 3rem;
+    }
+
+    /* ── Edge lines ── */
+    .line-left, .line-right {
+      position: fixed; top: 0; width: 2px; height: 100vh;
+      background-color: #60a5fa;
+      -webkit-mask-image: linear-gradient(to bottom, transparent, white 25%, white 75%, transparent);
+      mask-image: linear-gradient(to bottom, transparent, white 25%, white 75%, transparent);
+      pointer-events: none;
+      animation: colorShift 10s ease-in-out infinite;
+    }
+    .line-left { left: 20px; }
+    .line-right { right: 20px; }
+
+    @keyframes colorShift {
+      0%, 100% { background-color: #60a5fa; }
+      33%       { background-color: #2dd4bf; }
+      66%       { background-color: #a78bfa; }
+    }
+
+    /* ── Nav ── */
+    nav {
+      margin-bottom: 4rem;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.2s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background-color: var(--accent);
+      transition: width 0.2s ease;
+    }
+
+    nav a:hover, nav a.active { color: var(--accent); }
+    nav a.active::after, nav a:hover::after { width: 100%; }
+
+    /* ── Layout ── */
+    main {
+      max-width: 860px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* ── Back link ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover { color: var(--accent); }
+
+    /* ── Header ── */
+    .project-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-family: "Big Shoulders Display", sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .project-summary {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 3rem;
+      max-width: 680px;
+    }
+
+    /* ── Stats row ── */
+    .stats {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+      padding: 1.5rem 2rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(96, 165, 250, 0.03);
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .stat-value {
+      font-family: "Big Shoulders Display", sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    .section h2 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section p {
+      font-size: 1rem;
+      color: #cbd5e1;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .section p:last-child { margin-bottom: 0; }
+
+    /* ── Signal cards ── */
+    .signals {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .signal-card {
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .signal-number {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .signal-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-bottom: 0.35rem;
+    }
+
+    .signal-weight {
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .signal-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── Download CTA ── */
+    .download-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.2s ease, color 0.2s ease;
+      margin-top: 1.5rem;
+    }
+
+    .download-cta:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .download-cta svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* ── Slides grid ── */
+    .slides-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .slide-thumb {
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .slide-thumb:hover {
+      border-color: var(--accent);
+      transform: scale(1.02);
+    }
+
+    /* ── Lightbox ── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #lightbox.open { display: flex; }
+
+    #lb-img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 6px;
+      box-shadow: 0 0 60px rgba(0,0,0,0.8);
+    }
+
+    #lb-prev, #lb-next {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      font-size: 1.25rem;
+      padding: 0.6rem 1rem;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.2s ease;
+    }
+
+    #lb-prev:hover, #lb-next:hover { background: rgba(255,255,255,0.15); }
+    #lb-prev { left: 1.5rem; }
+    #lb-next { right: 1.5rem; }
+
+    #lb-close {
+      position: fixed;
+      top: 1.25rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    #lb-close:hover { color: #fff; }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 5rem;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      max-width: 860px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    footer span, footer a {
+      font-size: 0.8rem;
+      color: #4a6580;
+      text-decoration: none;
+    }
+
+    footer a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="line-left"></div>
+  <div class="line-right"></div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="blog.html">CdBlog</a>
+    <a href="portfolio.html" class="active">Portfolio</a>
+    <a href="resume.html">Resume</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <main>
+    <a href="portfolio.html" class="back-link">
+      ← Back to Portfolio
+    </a>
+
+    <p class="project-tag">Revenue Analytics · Customer Success · BI</p>
+    <h1>Propensity to Expand Framework</h1>
+    <p class="project-summary">This was created as part of a skills assessment for a revenue analytics role at a SaaS company. Hiring for the role was unfortunately frozen...so it goes. The brief was to create an expansion scoring framework for customer success using a sample dataset. This wasn't a coding exercise, but rather an operational one. The deliverable included 4 slides giving an overview of the scoring methodology, signals and metrics used, overview of the input data, and proposed operationalization of the model.</p>
+
+    <div class="slides-grid">
+      <img src="pte-slide-1.png" alt="Slide 1 — Title" class="slide-thumb" onclick="openLightbox(0)" />
+      <img src="pte-slide-2.png" alt="Slide 2 — PTE Score" class="slide-thumb" onclick="openLightbox(1)" />
+      <img src="pte-slide-3.png" alt="Slide 3 — Signals and Metrics" class="slide-thumb" onclick="openLightbox(2)" />
+      <img src="pte-slide-4.png" alt="Slide 4 — Data Overview" class="slide-thumb" onclick="openLightbox(3)" />
+      <img src="pte-slide-5.png" alt="Slide 5 — Operationalization" class="slide-thumb" onclick="openLightbox(4)" />
+    </div>
+
+    <a href="portfolio-pte-framework.pdf" download class="download-cta">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 16l-5-5 1.41-1.41L11 13.17V4h2v9.17l2.59-2.58L17 11l-5 5zm-7 2h14v2H5z"/>
+      </svg>
+      Download Deck (PDF)
+    </a>
+
+    <!-- Lightbox -->
+    <div id="lightbox" onclick="closeLightbox()">
+      <button id="lb-prev" onclick="event.stopPropagation(); changeSlide(-1)">&#8592;</button>
+      <img id="lb-img" src="" alt="" />
+      <button id="lb-next" onclick="event.stopPropagation(); changeSlide(1)">&#8594;</button>
+      <button id="lb-close" onclick="closeLightbox()">&#x2715;</button>
+    </div>
+  </main>
+
+  <footer>
+    <span>© 2026 Christian deBettencourt · <a href="https://ceedeebee.com">ceedeebee.com</a></span>
+    <span>Built with <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a></span>
+  </footer>
+
+<script>
+  const slides = ['pte-slide-1.png','pte-slide-2.png','pte-slide-3.png','pte-slide-4.png','pte-slide-5.png'];
+  let current = 0;
+
+  function openLightbox(index) {
+    current = index;
+    document.getElementById('lb-img').src = slides[current];
+    document.getElementById('lightbox').classList.add('open');
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+
+  function changeSlide(dir) {
+    current = (current + dir + slides.length) % slides.length;
+    document.getElementById('lb-img').src = slides[current];
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') changeSlide(-1);
+    if (e.key === 'ArrowRight') changeSlide(1);
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('loaded');
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('#')) return;
+        e.preventDefault();
+        document.body.classList.remove('loaded');
+        setTimeout(() => { window.location.href = href; }, 300);
+      });
+    });
+  });
+</script>
+</body>
+</html>
